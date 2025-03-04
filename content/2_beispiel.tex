@@ -1,0 +1,84 @@
+\chapter{Beispiele}
+In den nachfolgenden Abschnitten sind einige Codebeispiele aufgezeigt, die zur Verwendung von Latex hilfreich sein können.
+
+\section{Textformatierung}
+
+\subsection{Zeilenumbrüche}
+Zeilenumbrüche im Editor erzeugen keine neue Zeile in der PDF. 
+Deshalb ist hier kein Zeilenumbruch zu sehen.
+Um eine neue Zeile zu beginnen wird die vorherige durch einen doppelten Backslash beendetet.\\
+Anschließend wird eine neue Zeile begonnen. 
+Um eine Leerzeile zu erzeugen wird die neue Zeile direkt wieder durch einen doppelten Backslash beendet.\\
+\\
+Der Text geht dann hier weiter.
+
+\subsection{Schriftvarianten}
+Um einen Text \textit{kursiv} oder \textbf{fett} zu schreiben werden die Befehle "`textit"' und "`textbf"' verwendet. Damit die korrekte Verwendung von Anführungszeichen sichergestellt werden kann sollte in Textstudio unter Optionen - Textstudio konfigurieren - Editor - Ersetze Anführungszeichen die deutsche Variante ausgewählt werden.\\
+\\
+Andere Schriftarten - beispielsweise zur Beschreibung von Codeausschnitten - werden durch den Befehl fontfamily aktiviert. Damit diese nur in einem bestimmten Bereich aktiv ist wird der Befehl von geschweiften Klammern umgeben:\\
+{\fontfamily{lmtt}\selectfont print("`hello world"')}
+
+\subsection{Akronyme}
+Akronyme werden in der Datei "`Abkürzungsverzeichnis.tex"' im Ordner "`framework"' definiert. Bei der Verwendung eines Akronyms wird automatisch das Wort bei der ersten Nennung vollständig ausgeschrieben. Anschließend wird nur noch die Abkürzung genannt:\\
+Diese Abschlussarbeit wird an der \ac{thu} verfasst. Die \ac{thu} befindet sich in Ulm.
+\\
+
+\section{Umgebungen}
+
+\subsection{Bilder}
+Bilder müssen im Ordner "`pictures"' abgespeichert werden, damit diese im Code verwendbar sind.
+Die Größe des Bildes wird in Abhängigkeit der Seitenbreite angegeben. Hier sind es 50\% der Seitenbreite. Die Buchstaben [ht] geben an, dass das Bild an dieser Stelle (h = here) platziert werden soll. Falls das nicht möglich ist wird das Bild ganz oben auf der Seite eingefügt (t = top). Durch das Label kann die Abbildung referenziert werden:\\
+Auf \autoref{pic:logo_hs} ist das Logo der Hochschule zu sehen.
+\begin{figure}[ht]
+	\centering
+	\includegraphics*[width=0.5\linewidth]{thu_logo}
+	\caption{Logo der Hochschule}
+	\label{pic:logo_hs}
+\end{figure}
+
+\subsection{Stichpunkte}
+\begin{itemize}
+	\item Stichpunkt 1
+	\item Stichpunkt 2
+\end{itemize}
+
+\subsection{Mathe}
+Um die Matheumgebung zu aktivieren gibt es mehrere Möglichkeiten. Für Formel im Text wird die Formel durch \$ eingeschlossen. Beispielsweise $sin(\pi) = 0$. Für Formeln in einer eigenen Zeile mit zusätzlicher Nummerierung wird die equation Umgebung verwendet.
+\begin{equation}
+	y = 2 \cdot x
+	\label{eqn:formel}
+\end{equation}
+Diese kann wie bei Bildern durch das Label referenziert werden. Siehe \autoref{eqn:formel}.
+
+\subsection{Diagramme}
+Um Diagramme aus Datensätzen zu zeichnen wird das Tikz Paket verwendet. Die Datensätze sollten im csv-Format vorliegen und werden im Ordner "`data"' abgespeichert. 
+\begin{figure}[ht]
+	\centering
+	\begin{tikzpicture}
+		\begin{axis}[
+			width=10cm, height=5cm,
+			axis lines=middle,
+			xlabel={t [s]},
+			xlabel style={below right},
+			ylabel={x [mm]},
+			ylabel style={above left},
+			ymin=-0, ymax=10,
+			xmin=-0, xmax=27,
+			xtick={5, 10, 15, 20, 25},
+			ytick={2, 4, 6, 8}
+			]
+			\addplot table [x=time, y=xData, col sep=comma] {data/plotexample.csv};
+			\addlegendentry{x-Daten}
+		\end{axis}
+	\end{tikzpicture}
+	\caption{Beispielplot}
+	\label{tikz:beispielplot}
+\end{figure}
+
+
+\section{Quellen}
+Es ist hilfreich verwendete Quellen durch ein Literaturverwaltungssystem wie "`Citavi"' zu organisieren. In diesem Programm ist es möglich die Quellen als .bib Datei in das Projekt zu exportieren. Allen Quellen wird in "`Citavi"' ein Key zugeordnet. Über diesen werden die Quellen mit dem "`cite"' Befehl aufgerufen \cite{thu}.
+
+\section{ToDos}
+Zu erledigende Aufgaben bzw. Kommentare können mit dem "`todo"' Befehl im Text vermerkt werden. Diese werden nur sichtbar, wenn in der preamble die Zeile {\fontfamily{lmtt}\selectfont newcommand(publish)} auskommentiert wird. 
+\todo{Hier sollten noch weiter Beispiele eingefügt werden}
